@@ -21,7 +21,7 @@ public class UsuarioService {
 	private BCryptPasswordEncoder pe;
 	
 	public List<Sis_Usuario> findAll() {
-		return repo.findAll();
+		return repo.findAllValid();
 	}
 	
 	public Sis_Usuario find(Integer id) {

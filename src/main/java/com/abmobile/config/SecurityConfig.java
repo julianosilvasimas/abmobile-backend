@@ -37,7 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	// Permissão para alteração
 	private static final String[] PUBLIC_MATCHERS = {
-			"/usuarios/**"
+			//Comentar esses endpoints para que possam ser acessados com envio da chave pelo header da requisição
+			"/usuarios/**",
+			"/reslan/**",
+			"/veiculos/**",
+			"/motoristas/**",
+			"/transportador/**",
+			"/area/**",
+			"/residuo/**"
 	};
 	
 	// Permissão somente Leitura
