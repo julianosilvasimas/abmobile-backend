@@ -35,29 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
-	// Permissão para alteração
-	private static final String[] PUBLIC_MATCHERS = {
-			//Comentar esses endpoints para que possam ser acessados com envio da chave pelo header da requisição
-			"/usuarios/**",
-			"/reslan/**",
-			"/veiculos/**",
-			"/motoristas/**",
-			"/transportador/**",
-			"/area/**",
-			"/residuo/**"
-	};
-	
-	// Permissão somente Leitura
- 	private static final String[] PUBLIC_MATCHERS_GET = {
-			
- 	};
-
-	private static final String[] PUBLIC_MATCHERS_POST = {
-			
-	};
-	
-
-	
  	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
@@ -66,14 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
 		
 		http.cors().and().csrf().disable();
-		http.authorizeRequests()
-			//Aqui permito apenas o método POST
-			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
-			//Aqui permito apenas o método GET 
-			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
-			//Aqui permito todo tipo de transação
-			.antMatchers(PUBLIC_MATCHERS).permitAll()
-			.anyRequest().authenticated();
+		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
